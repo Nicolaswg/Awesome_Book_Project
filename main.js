@@ -2,7 +2,6 @@ const container = document.querySelector('.container');
 const bookTitle = document.getElementById('title');
 const bookAuthor = document.getElementById('author');
 const btn = document.getElementById('btn-add');
-const arrBooks = getBooks();
 
 function BookConstructor(title, author) {
   this.title = title;
@@ -22,20 +21,7 @@ function getBooks() {
   return books;
 }
 
-btn.addEventListener('click', () => {
-  const title = bookTitle.value.toString();
-  const author = bookAuthor.value.toString();
-  const book = new BookConstructor(title, author);
-  const inputs = document.querySelectorAll('input');
-  inputs.forEach((inputs) => {
-    inputs.value = '';
-  });
-  arrBooks.push(book);
-  storeBooks(JSON.stringify(arrBooks));
-  displayBooks();
-});
-
-function displayBooks() {
+/* function displayBooks() {
   const bookContainer = document.createElement('div');
   bookContainer.classList = 'books';
   let books = getBooks();
@@ -48,5 +34,25 @@ function displayBooks() {
     container.appendChild(bookContainer);
   });
   console.log(books);
-}
-displayBooks();
+} */
+
+btn.addEventListener('click', () => {
+  const title = bookTitle.value.toString();
+  const author = bookAuthor.value.toString();
+  const book = new BookConstructor(title, author);
+  const inputs = document.querySelectorAll('input');
+  inputs.forEach((inputs) => {
+    inputs.value = '';
+  });
+  const arrBooks = getBooks();
+  arrBooks.push(book);
+  storeBooks(JSON.stringify(arrBooks));
+  const bookContainer = document.createElement('div');
+  bookContainer.classList = 'books';
+  const bookContent = `<p class="title">${book.title}</p>
+    <p class="author">${book.author}</p>
+    <button id="btn-remove">Remove</button>
+    <div class="line"></div>`;
+  bookContainer.innerHTML += bookContent;
+  container.appendChild(bookContainer);
+});

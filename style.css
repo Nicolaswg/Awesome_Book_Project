@@ -1,13 +1,42 @@
-.books-container {
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  margin: 5px;
+}
+
+.books {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: 5px 5px 10px 5px;
+}
+
+.books button {
+  font-size: 1rem;
+  margin-top: 5px;
+  cursor: pointer;
+  width: 20%;
+}
+
+.line {
+  width: 100%;
+  height: 1px;
+  background-color: #ccc;
+  margin: 5px 0 10px 5px;
 }
 
 .form {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  margin: 5px;
 }
 
 .form input {

@@ -9,19 +9,6 @@ function BookConstructor(title, author) {
   this.author = author;
 }
 
-const createdBooks = () => {
-  arrBooks.forEach((element) => {
-    const book = document.createElement('div');
-    book.classList = 'books';
-    const bookContent = `<p class="title">${element.title}</p>
-    <p class="author">${element.author}</p>
-    <button id="btn-remove">Remove</button>
-    <div class="line"></div>`;
-    book.innerHTML += bookContent;
-    container.appendChild(book);
-  });
-};
-
 btn.addEventListener('click', () => {
   const title = bookTitle.value.toString();
   const author = bookAuthor.value.toString();
@@ -31,6 +18,13 @@ btn.addEventListener('click', () => {
     inputs.value = '';
   });
   arrBooks.push(book);
-  createdBooks();
+  const bookContainer = document.createElement('div');
+  bookContainer.classList = 'books';
+  const bookContent = `<p class="title">${book.title}</p>
+    <p class="author">${book.author}</p>
+    <button id="btn-remove">Remove</button>
+    <div class="line"></div>`;
+  bookContainer.innerHTML += bookContent;
+  container.appendChild(bookContainer);
   console.log(arrBooks);
 });

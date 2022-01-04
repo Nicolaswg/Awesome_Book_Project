@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 const bookTitle = document.getElementById('title');
 const bookAuthor = document.getElementById('author');
 const btn = document.getElementById('btn-add');

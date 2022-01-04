@@ -1,8 +1,6 @@
-const container = document.querySelector('.container');
 const bookTitle = document.getElementById('title');
 const bookAuthor = document.getElementById('author');
 const btn = document.getElementById('btn-add');
-let arrBooks = getBooks();
 
 function BookConstructor(title, author) {
   this.title = title;
@@ -22,18 +20,18 @@ function getBooks() {
   return books;
 }
 
-function removeBook(index) {
-  arrBooks = arrBooks.filter((e, i) => i !== index);
-  storeBooks(JSON.stringify(arrBooks));
-  return displayBooks();
-}
+let arrBooks = getBooks();
 
 function displayBooks() {
   let bookContent = '';
   if (arrBooks.length === 0) {
     document.querySelector('.books').innerHTML = 'No Books';
-    console.log(arrBooks);
   } else {
+    const removeBook = (index) => {
+      arrBooks = arrBooks.filter((e, i) => i !== index);
+      storeBooks(JSON.stringify(arrBooks));
+      return displayBooks();
+    };
     arrBooks.map((e, i) => {
       bookContent += `<p class="title">${arrBooks[i].title}</p>
     <p class="author">${arrBooks[i].author}</p>
@@ -48,9 +46,9 @@ function displayBooks() {
             removeBook(arrBooks.indexOf(arrBooks[i]));
             event.preventDefault();
           },
-          false
         );
       });
+      return arrBooks;
     });
   }
 }

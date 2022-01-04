@@ -21,7 +21,7 @@ function getBooks() {
   }
   return books;
 }
-const arrBooks = getBooks();
+let arrBooks = getBooks();
 
 const createdBookList = (book) => {
   bookContainer.classList = 'books';
@@ -33,9 +33,11 @@ const createdBookList = (book) => {
   container.appendChild(bookContainer);
 };
 
-const deletedBook = (element) => {
+const deletedBook = (element, index) => {
+  arrBooks = arrBooks.filter((e, i) => i !== index);
   const parent = element.parentNode;
   parent.removeChild(element);
+  storeBooks(JSON.stringify(arrBooks));
 };
 
 const printLocalBookList = () => {
@@ -52,9 +54,10 @@ const printLocalBookList = () => {
     container.appendChild(div);
 
     const btnRemove = document.querySelectorAll('.btn-remove');
-    btnRemove.forEach((btn) => {
+    btnRemove.forEach((btn, i) => {
       btn.addEventListener('click', () => {
-        deletedBook(div);
+        deletedBook(div, i);
+        console.log(i);
       });
     });
   });
@@ -72,9 +75,10 @@ btn.addEventListener('click', () => {
   });
   createdBookList(book);
   const btnRemove = document.querySelectorAll('.btn-remove');
-  btnRemove.forEach((btn) => {
+  btnRemove.forEach((btn, i) => {
     btn.addEventListener('click', () => {
-      deletedBook(bookContainer);
+      deletedBook(bookContainer, i);
+      console.log(i);
     });
   });
 });

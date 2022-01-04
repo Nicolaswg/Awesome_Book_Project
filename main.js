@@ -22,34 +22,40 @@ function getBooks() {
 
 let arrBooks = getBooks();
 
-function displayBooks() {
-  let bookContent = '';
-  if (arrBooks.length === 0) {
-    document.querySelector('.books').innerHTML = 'No Books';
-  } else {
+function addBooks(bookContent) {
+  arrBooks.map((e, i) => {
+    bookContent += `<p class="title">${arrBooks[i].title}</p>
+  <p class="author">${arrBooks[i].author}</p>
+  <button class="remove">Remove</button>
+  <div class="line"></div>`;
+    document.querySelector('.books').innerHTML = bookContent;
+    const buttons = document.querySelectorAll('button.remove');
     const removeBook = (index) => {
       arrBooks = arrBooks.filter((e, i) => i !== index);
       storeBooks(JSON.stringify(arrBooks));
+      // eslint-disable-next-line no-use-before-define
       return displayBooks();
     };
-    arrBooks.map((e, i) => {
-      bookContent += `<p class="title">${arrBooks[i].title}</p>
-    <p class="author">${arrBooks[i].author}</p>
-    <button class="remove">Remove</button>
-    <div class="line"></div>`;
-      document.querySelector('.books').innerHTML = bookContent;
-      const buttons = document.querySelectorAll('button.remove');
-      buttons.forEach((e, i) => {
-        buttons[i].addEventListener(
-          'click',
-          (event) => {
-            removeBook(arrBooks.indexOf(arrBooks[i]));
-            event.preventDefault();
-          },
-        );
-      });
-      return arrBooks;
+    buttons.forEach((e, i) => {
+      buttons[i].addEventListener(
+        'click',
+        (event) => {
+          // eslint-disable-next-line no-undef
+          removeBook(arrBooks.indexOf(arrBooks[i]));
+          event.preventDefault();
+        },
+      );
     });
+    return arrBooks;
+  });
+}
+
+function displayBooks() {
+  const bookContent = '';
+  if (arrBooks.length === 0) {
+    document.querySelector('.books').innerHTML = 'No Books';
+  } else {
+    addBooks(bookContent);
   }
 }
 

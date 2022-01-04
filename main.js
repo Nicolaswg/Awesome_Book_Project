@@ -1,4 +1,3 @@
-/* eslint-disable no-use-before-define */
 const bookTitle = document.getElementById('title');
 const bookAuthor = document.getElementById('author');
 const btn = document.getElementById('btn-add');
@@ -47,12 +46,10 @@ function createDisplay(bookContent) {
     const removeBook = (index) => {
       arrBooks = arrBooks.filter((e, i) => i !== index);
       storeBooks(JSON.stringify(arrBooks));
-      // eslint-disable-next-line no-use-before-define
       return displayBooks();
     };
     buttons.forEach((e, i) => {
       buttons[i].addEventListener('click', (event) => {
-        // eslint-disable-next-line no-undef
         removeBook(arrBooks.indexOf(arrBooks[i]));
         event.preventDefault();
       });

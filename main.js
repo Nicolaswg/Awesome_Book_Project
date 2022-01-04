@@ -22,7 +22,20 @@ function getBooks() {
 
 let arrBooks = getBooks();
 
-function addBooks(bookContent) {
+function addBooks() {
+  const title = bookTitle.value.toString();
+  const author = bookAuthor.value.toString();
+  const book = new BookConstructor(title, author);
+  const inputs = document.querySelectorAll('input');
+  inputs.forEach((inputs) => {
+    inputs.value = '';
+  });
+  arrBooks.push(book);
+  storeBooks(JSON.stringify(arrBooks));
+  displayBooks();
+}
+
+function createDisplay(bookContent) {
   arrBooks.map((e, i) => {
     bookContent += `<p class="title">${arrBooks[i].title}</p>
   <p class="author">${arrBooks[i].author}</p>
@@ -37,14 +50,11 @@ function addBooks(bookContent) {
       return displayBooks();
     };
     buttons.forEach((e, i) => {
-      buttons[i].addEventListener(
-        'click',
-        (event) => {
-          // eslint-disable-next-line no-undef
-          removeBook(arrBooks.indexOf(arrBooks[i]));
-          event.preventDefault();
-        },
-      );
+      buttons[i].addEventListener('click', (event) => {
+        // eslint-disable-next-line no-undef
+        removeBook(arrBooks.indexOf(arrBooks[i]));
+        event.preventDefault();
+      });
     });
     return arrBooks;
   });
@@ -55,21 +65,12 @@ function displayBooks() {
   if (arrBooks.length === 0) {
     document.querySelector('.books').innerHTML = 'No Books';
   } else {
-    addBooks(bookContent);
+    createDisplay(bookContent);
   }
 }
 
 btn.addEventListener('click', () => {
-  const title = bookTitle.value.toString();
-  const author = bookAuthor.value.toString();
-  const book = new BookConstructor(title, author);
-  const inputs = document.querySelectorAll('input');
-  inputs.forEach((inputs) => {
-    inputs.value = '';
-  });
-  arrBooks.push(book);
-  storeBooks(JSON.stringify(arrBooks));
-  displayBooks();
+  addBooks();
 });
 
 displayBooks();

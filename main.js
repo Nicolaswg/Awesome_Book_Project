@@ -2,7 +2,7 @@ const container = document.querySelector('.container');
 const bookTitle = document.getElementById('title');
 const bookAuthor = document.getElementById('author');
 const btn = document.getElementById('btn-add');
-const bookContainer = document.createElement('div');
+let arrBooks = getBooks();
 
 function BookConstructor(title, author) {
   this.title = title;
@@ -21,67 +21,51 @@ function getBooks() {
   }
   return books;
 }
-let arrBooks = getBooks();
 
-const createdBookList = (book) => {
-  bookContainer.classList = 'books';
-  const bookContent = `<p class="title">${book.title}</p>
-    <p class="author">${book.author}</p>
-    <button id="btn-remove">Remove</button>
-    <div class="line"></div>`;
-  bookContainer.innerHTML += bookContent;
-  container.appendChild(bookContainer);
-};
-
-const deletedBook = (element, index) => {
+function removeBook(index) {
   arrBooks = arrBooks.filter((e, i) => i !== index);
-  const parent = element.parentNode;
-  parent.removeChild(element);
   storeBooks(JSON.stringify(arrBooks));
-};
+  return displayBooks();
+}
 
-const printLocalBookList = () => {
-  const localStorageBooks = getBooks();
-  localStorageBooks.forEach((book) => {
-    const container = document.querySelector('.container');
-    const div = document.createElement('div');
-    div.classList = 'books';
-    const content = `<p class="title">${book.title}</p>
-    <p class="author">${book.author}</p>
-    <button class="btn-remove">Remove</button>
+function displayBooks() {
+  let bookContent = '';
+  if (arrBooks.length === 0) {
+    document.querySelector('.books').innerHTML = 'No Books';
+    console.log(arrBooks);
+  } else {
+    arrBooks.map((e, i) => {
+      bookContent += `<p class="title">${arrBooks[i].title}</p>
+    <p class="author">${arrBooks[i].author}</p>
+    <button class="remove">Remove</button>
     <div class="line"></div>`;
-    div.innerHTML += content;
-    container.appendChild(div);
-
-    const btnRemove = document.querySelectorAll('.btn-remove');
-    btnRemove.forEach((btn, i) => {
-      btn.addEventListener('click', () => {
-        deletedBook(div, i);
-        console.log(i);
+      document.querySelector('.books').innerHTML = bookContent;
+      const buttons = document.querySelectorAll('button.remove');
+      buttons.forEach((e, i) => {
+        buttons[i].addEventListener(
+          'click',
+          (event) => {
+            removeBook(arrBooks.indexOf(arrBooks[i]));
+            event.preventDefault();
+          },
+          false
+        );
       });
     });
-  });
-};
+  }
+}
 
 btn.addEventListener('click', () => {
   const title = bookTitle.value.toString();
   const author = bookAuthor.value.toString();
   const book = new BookConstructor(title, author);
-  arrBooks.push(book);
-  storeBooks(JSON.stringify(arrBooks));
   const inputs = document.querySelectorAll('input');
   inputs.forEach((inputs) => {
     inputs.value = '';
   });
-  createdBookList(book);
-  const btnRemove = document.querySelectorAll('.btn-remove');
-  btnRemove.forEach((btn, i) => {
-    btn.addEventListener('click', () => {
-      deletedBook(bookContainer, i);
-      console.log(i);
-    });
-  });
+  arrBooks.push(book);
+  storeBooks(JSON.stringify(arrBooks));
+  displayBooks();
 });
 
-printLocalBookList();
-console.log(arrBooks);
+displayBooks();

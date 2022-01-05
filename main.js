@@ -1,7 +1,6 @@
 const bookTitle = document.getElementById('title');
 const bookAuthor = document.getElementById('author');
 const btn = document.getElementById('btn-add');
-
 class Book {
   constructor(title, author) {
     this.title = title;

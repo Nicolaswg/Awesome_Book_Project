@@ -33,10 +33,10 @@ function displayBooks() {
     document.querySelector('.books').innerHTML = 'No Books';
   } else {
     arrBooks.map((e, i) => {
-      bookContent += `<p class="title">${arrBooks[i].title}</p>
+      bookContent += `<div class="row-div"><p class="title">"${arrBooks[i].title}"</p>
+      <p>By</p>
   <p class="author">${arrBooks[i].author}</p>
-  <button class="remove">Remove</button>
-  <div class="line"></div>`;
+  <button class="remove">Remove</button></div>`;
       document.querySelector('.books').innerHTML = bookContent;
       const buttons = document.querySelectorAll('button.remove');
       buttons.forEach((e, i) => {
@@ -59,13 +59,15 @@ function addBooks() {
   inputs.forEach((inputs) => {
     inputs.value = '';
   });
-  arrBooks.push(book);
-  storeBooks(JSON.stringify(arrBooks));
-  displayBooks();
+  if (title !== '' && author !== '') {
+    arrBooks.push(book);
+    storeBooks(JSON.stringify(arrBooks));
+    displayBooks();
+  }
 }
 
 btn.addEventListener('click', () => {
   addBooks();
 });
-
+console.log(arrBooks);
 displayBooks();

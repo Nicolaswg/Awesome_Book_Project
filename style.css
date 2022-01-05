@@ -200,8 +200,7 @@ footer {
 
 .bg-footer {
   width: 100vw;
-  height: 100px;
+  height: 50px;
   background-color: #ccc;
-  border-top: solid 4px #000;
+  border: solid 4px #000;
 }
-

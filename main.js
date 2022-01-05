@@ -1,6 +1,9 @@
 const bookTitle = document.getElementById('title');
 const bookAuthor = document.getElementById('author');
 const btn = document.getElementById('btn-add');
+const contactSection = document.querySelector('#contact-section');
+const listSection = document.querySelector('#list-section');
+const bookForm = document.getElementById('add-section');
 
 class Book {
   constructor(title, author) {
@@ -68,31 +71,25 @@ class Book {
     }
   }
 
-  static addSection(name) {
-    const section = document.querySelector(`#${name}`);
+  static addSection(id) {
+    const section = document.querySelector(`#${id}`);
     section.style.display = 'flex';
     return section;
   }
 
   static bookForm() {
-    const contactSection = document.querySelector('#contact-section');
-    const listSection = document.querySelector('#list-section');
     contactSection.style.display = 'none';
     listSection.style.display = 'none';
     return this.addSection('add-section');
   }
 
   static listSection() {
-    const bookForm = document.getElementById('add-section');
-    const contactSection = document.querySelector('#contact-section');
     bookForm.style.display = 'none';
     contactSection.style.display = 'none';
     return this.addSection('list-section');
   }
 
   static contactSection() {
-    const listSection = document.querySelector('#list-section');
-    const bookForm = document.getElementById('add-section');
     listSection.style.display = 'none';
     bookForm.style.display = 'none';
     return this.addSection('contact-section');

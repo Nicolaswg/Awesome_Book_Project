@@ -1,6 +1,9 @@
 const bookTitle = document.getElementById('title');
 const bookAuthor = document.getElementById('author');
 const btn = document.getElementById('btn-add');
+const contactSection = document.querySelector('#contact-section');
+const listSection = document.querySelector('#list-section');
+const bookForm = document.getElementById('add-section');
 
 class Book {
   constructor(title, author) {
@@ -44,6 +47,7 @@ class Book {
   }
 
   static displayBooks() {
+    this.listSection();
     let bookContent = '';
     if (this.data.length === 0) {
       document.querySelector('.books').innerHTML = 'No Books';
@@ -65,6 +69,30 @@ class Book {
         return this.data;
       });
     }
+  }
+
+  static addSection(id) {
+    const section = document.querySelector(`#${id}`);
+    section.style.display = 'flex';
+    return section;
+  }
+
+  static bookForm() {
+    contactSection.style.display = 'none';
+    listSection.style.display = 'none';
+    return this.addSection('add-section');
+  }
+
+  static listSection() {
+    bookForm.style.display = 'none';
+    contactSection.style.display = 'none';
+    return this.addSection('list-section');
+  }
+
+  static contactSection() {
+    listSection.style.display = 'none';
+    bookForm.style.display = 'none';
+    return this.addSection('contact-section');
   }
 }
 

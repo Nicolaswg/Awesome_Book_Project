@@ -2,72 +2,73 @@ const bookTitle = document.getElementById('title');
 const bookAuthor = document.getElementById('author');
 const btn = document.getElementById('btn-add');
 
-function BookConstructor(title, author) {
-  this.title = title;
-  this.author = author;
-}
+class Book {
+  constructor(title, author) {
+    this.title = title;
+    this.author = author;
+  }
 
-function storeBooks(books) {
-  return localStorage.setItem('books', books);
-}
+  static storeBooks(books) {
+    return localStorage.setItem('books', books);
+  }
 
-function getBooks() {
-  let books = JSON.parse(localStorage.getItem('books'));
-  if (!books) {
-    books = [];
+  static getBooks() {
+    let books = JSON.parse(localStorage.getItem('books'));
+    if (!books) {
+      books = [];
+      return books;
+    }
     return books;
   }
-  return books;
-}
 
-let arrBooks = getBooks();
+  static data = this.getBooks();
 
-const removeBook = (index) => {
-  arrBooks = arrBooks.filter((e, i) => i !== index);
-  storeBooks(JSON.stringify(arrBooks));
-};
-
-function displayBooks() {
-  let bookContent = '';
-  if (arrBooks.length === 0) {
-    document.querySelector('.books').innerHTML = 'No Books';
-  } else {
-    arrBooks.map((e, i) => {
-      bookContent += `<div class="row-div"><p class="title">"${arrBooks[i].title}"</p>
-      <p>By</p>
-  <p class="author">${arrBooks[i].author}</p>
-  <button class="remove">Remove</button></div>`;
-      document.querySelector('.books').innerHTML = bookContent;
-      const buttons = document.querySelectorAll('button.remove');
-      buttons.forEach((e, i) => {
-        buttons[i].addEventListener('click', (event) => {
-          removeBook(arrBooks.indexOf(arrBooks[i]));
-          displayBooks();
-          event.preventDefault();
-        });
-      });
-      return arrBooks;
+  static addBookMethod() {
+    const title = bookTitle.value.toString();
+    const author = bookAuthor.value.toString();
+    const book = new Book(title, author);
+    const inputs = document.querySelectorAll('input');
+    inputs.forEach((inputs) => {
+      inputs.value = '';
     });
+    if (title !== '' && author !== '') {
+      this.data.push(book);
+      this.storeBooks(JSON.stringify(this.data));
+      this.displayBooks();
+    }
   }
-}
 
-function addBooks() {
-  const title = bookTitle.value.toString();
-  const author = bookAuthor.value.toString();
-  const book = new BookConstructor(title, author);
-  const inputs = document.querySelectorAll('input');
-  inputs.forEach((inputs) => {
-    inputs.value = '';
-  });
-  if (title !== '' && author !== '') {
-    arrBooks.push(book);
-    storeBooks(JSON.stringify(arrBooks));
-    displayBooks();
+  static removeBook(index) {
+    this.data = this.data.filter((e, i) => i !== index);
+    this.storeBooks(JSON.stringify(this.data));
+  }
+
+  static displayBooks() {
+    let bookContent = '';
+    if (this.data.length === 0) {
+      document.querySelector('.books').innerHTML = 'No Books';
+    } else {
+      this.data.map((e, i) => {
+        bookContent += `<div class="row-div"><p class="title">"${this.data[i].title}"</p>
+      <p>By</p>
+  <p class="author">${this.data[i].author}</p>
+  <button class="remove">Remove</button></div>`;
+        document.querySelector('.books').innerHTML = bookContent;
+        const buttons = document.querySelectorAll('button.remove');
+        buttons.forEach((e, i) => {
+          buttons[i].addEventListener('click', (event) => {
+            this.removeBook(this.data.indexOf(this.data[i]));
+            this.displayBooks();
+            event.preventDefault();
+          });
+        });
+        return this.data;
+      });
+    }
   }
 }
 
 btn.addEventListener('click', () => {
-  addBooks();
+  Book.addBookMethod();
 });
-console.log(arrBooks);
-displayBooks();
+Book.displayBooks();

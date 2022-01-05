@@ -9,19 +9,59 @@
 </head>
 <body>
     <header>
-        <h1>Awesome books</h1>
+        <nav class="navigation">
+            <div class="nav-title">
+                <p>Awesome Books</p>
+            </div>
+            <div class="nav-links">
+                <ul class="links-container">
+                    <li><a class="link" href="#">List</a></li>
+                    <li><div class="line"></div></li>
+                    <li><a class="link" href="#">Add new</a></li>
+                    <li><div class="line"></div></li>
+                    <li><a class="link" href="#">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
     </header>
-    <div class="container">
-        <div class="books"></div>
-    </div>
-    <div class="books-generator">
-        <h2 class="subtitle">Add a new book</h2>
-        <form action="#" class="form">
-            <input id="title" type="text" placeholder="Title" minlength="3" maxlength="40" required>  
-            <input id="author" type="text" placeholder="Author" minlength="2" maxlength="40" required>
+    <section id="list-section">
+        <div class="list">
+            <h2>All Awesome Books</h2>
+        <div class="container">
+            <div class="books"></div>
+        </div>
+        </div>
+    </section>
+    <section id="add-section">
+        <div class="books-generator">
+            <h2 class="subtitle">Add a new book</h2>
+            <form action="#" class="form">
+                <input id="title" type="text" placeholder="Title" minlength="3" maxlength="40" required>  
+                <input id="author" type="text" placeholder="Author" minlength="2" maxlength="40" required>
+            </form>
             <button id="btn-add" type="submit">Add</button>
-        </form>
+        </div>
+    </section>
+    <section id="contact-section">
+        <div class="contact-info">
+        <h2>Conctact informaction</h2>
+        <div class="contact-description">
+            <p>If you have any question or just want to sya "Hello"? <br>You can reach out to us!</p>
+        <ul>
+            <li>Our e-mail: mail@mail.com</li>
+            <li>Our phone number: 0043586534422</li>
+            <li>Our address: Streetname 22, 84503 City, Country</li>
+        </ul>
+        </div>
     </div>
+    </section>
+    <footer>
+        <div class="footer-info">
+            <p>CopyRigth</p>
+        </div>
+        <div class="bg-footer"></div>
+    </footer>
+    
     <script src="main.js"></script>
 </body>
 </html>

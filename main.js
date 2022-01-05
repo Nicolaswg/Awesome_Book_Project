@@ -44,6 +44,7 @@ class Book {
   }
 
   static displayBooks() {
+    this.listSection();
     let bookContent = '';
     if (this.data.length === 0) {
       document.querySelector('.books').innerHTML = 'No Books';
@@ -65,6 +66,36 @@ class Book {
         return this.data;
       });
     }
+  }
+
+  static addSection(name) {
+    const section = document.querySelector(`#${name}`);
+    section.style.display = 'flex';
+    return section;
+  }
+
+  static bookForm() {
+    const contactSection = document.querySelector('#contact-section');
+    const listSection = document.querySelector('#list-section');
+    contactSection.style.display = 'none';
+    listSection.style.display = 'none';
+    return this.addSection('add-section');
+  }
+
+  static listSection() {
+    const bookForm = document.getElementById('add-section');
+    const contactSection = document.querySelector('#contact-section');
+    bookForm.style.display = 'none';
+    contactSection.style.display = 'none';
+    return this.addSection('list-section');
+  }
+
+  static contactSection() {
+    const listSection = document.querySelector('#list-section');
+    const bookForm = document.getElementById('add-section');
+    listSection.style.display = 'none';
+    bookForm.style.display = 'none';
+    return this.addSection('contact-section');
   }
 }
 
